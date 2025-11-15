@@ -50,10 +50,10 @@ class BookingController extends Controller
             \App\Models\Notification::create([
                 'user_id' => $admin->id,
                 'title'   => 'Booking Baru Masuk',
-                'message' => 'Vendor ' . $request->user()->name . 
-                            ' mengajukan booking stand #' . $booking->stand_id .
-                            ' (ID Booking: ' . $booking->id . ').',
-                'link'    => route('admin.bookings.show', $booking), // sesuaikan dengan route-mu
+                'message' => 'Vendor ' . $request->user()->name .
+                    ' mengajukan booking stand #' . $booking->stand_id .
+                    ' (ID Booking: ' . $booking->id . ').',
+                'link' => route('admin.bookings.show', $booking), // sesuaikan dengan route-mu
             ]);
         }
 
@@ -64,7 +64,7 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         if ($booking->vendor_id !== request()->user()->id) {
-        abort(403);
+            abort(403);
         }
         if ($booking->status !== 'pending') {
             return back()->with('error', 'Booking tidak bisa dibatalkan.');
@@ -97,6 +97,8 @@ class BookingController extends Controller
             ->with('success', 'Bukti pembayaran berhasil diupload.');
     }
 
-
-
+    public function show(Booking $booking)
+    {
+        return view('vendor.bookings.show', compact('booking'));
+    }
 }

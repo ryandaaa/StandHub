@@ -9,6 +9,7 @@ use App\Http\Controllers\NotificationController;
 | Landing Page
 |--------------------------------------------------------------------------
 */
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -42,41 +43,56 @@ Route::middleware(['auth', 'role:admin'])
     ->as('admin.')
     ->group(function () {
 
-        Route::get('/dashboard', 
-            [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
+        Route::get(
+            '/dashboard',
+            [\App\Http\Controllers\Admin\DashboardController::class, 'index']
+        )
             ->name('dashboard');
 
         // STANDS CRUD
-        Route::resource('stands', 
-            \App\Http\Controllers\Admin\StandController::class);
+        Route::resource(
+            'stands',
+            \App\Http\Controllers\Admin\StandController::class
+        );
 
         // BOOKING APPROVE / REJECT
-        Route::get('bookings/{booking}/approve', 
-            [\App\Http\Controllers\Admin\BookingController::class, 'approve'])
+        Route::get(
+            'bookings/{booking}/approve',
+            [\App\Http\Controllers\Admin\BookingController::class, 'approve']
+        )
             ->name('bookings.approve');
 
-        Route::get('bookings/{booking}/reject',
-            [\App\Http\Controllers\Admin\BookingController::class, 'rejectForm'])
+        Route::get(
+            'bookings/{booking}/reject',
+            [\App\Http\Controllers\Admin\BookingController::class, 'rejectForm']
+        )
             ->name('bookings.rejectForm');
 
-        Route::post('bookings/{booking}/reject',
-            [\App\Http\Controllers\Admin\BookingController::class, 'reject'])
+        Route::post(
+            'bookings/{booking}/reject',
+            [\App\Http\Controllers\Admin\BookingController::class, 'reject']
+        )
             ->name('bookings.reject');
 
         // BOOKING LIST & DETAIL
-        Route::resource('bookings', 
-            \App\Http\Controllers\Admin\BookingController::class)
+        Route::resource(
+            'bookings',
+            \App\Http\Controllers\Admin\BookingController::class
+        )
             ->only(['index', 'show']);
 
         // VENDOR LIST & DETAIL
-        Route::resource('vendors', 
-            \App\Http\Controllers\Admin\VendorController::class)
+        Route::resource(
+            'vendors',
+            \App\Http\Controllers\Admin\VendorController::class
+        )
             ->only(['index', 'show', 'destroy']);
 
-        Route::get('stands/{stand}/bookings', 
-            [\App\Http\Controllers\Admin\StandBookingController::class, 'index'])
+        Route::get(
+            'stands/{stand}/bookings',
+            [\App\Http\Controllers\Admin\StandBookingController::class, 'index']
+        )
             ->name('stands.bookings');
-
     });
 
 
@@ -92,29 +108,41 @@ Route::middleware(['auth', 'role:vendor'])
     ->as('vendor.')
     ->group(function () {
 
-        Route::get('/dashboard',
-            [\App\Http\Controllers\Vendor\DashboardController::class, 'index'])
-            ->name('dashboard');
+        Route::get(
+            '/dashboard',
+            [\App\Http\Controllers\Vendor\DashboardController::class, 'index']
+        )->name('dashboard');
 
-        Route::get('/stands',
-            [\App\Http\Controllers\Vendor\StandController::class, 'index'])
-            ->name('stands.index');
+        Route::get(
+            '/stands',
+            [\App\Http\Controllers\Vendor\StandController::class, 'index']
+        )->name('stands.index');
 
         // Booking CRUD (index, create, store, destroy)
-        Route::resource('bookings',
-            \App\Http\Controllers\Vendor\BookingController::class)
-            ->only(['index', 'create', 'store', 'destroy']);
+        Route::resource(
+            'bookings',
+            \App\Http\Controllers\Vendor\BookingController::class
+        )->only(['index', 'create', 'store', 'destroy']);
+
+        Route::get(
+            'bookings/{booking}',
+            [\App\Http\Controllers\Vendor\BookingController::class, 'show']
+        )->name('bookings.show');
 
         // Upload Bukti Pembayaran (FORM)
-        Route::get('bookings/{booking}/upload',
-            [\App\Http\Controllers\Vendor\BookingController::class, 'uploadForm'])
-            ->name('bookings.uploadForm');
+        Route::get(
+            'bookings/{booking}/upload',
+            [\App\Http\Controllers\Vendor\BookingController::class, 'uploadForm']
+        )->name('bookings.uploadForm');
 
         // Upload Bukti Pembayaran (POST)
-        Route::post('bookings/{booking}/upload',
-            [\App\Http\Controllers\Vendor\BookingController::class, 'upload'])
-            ->name('bookings.upload');
+        Route::post(
+            'bookings/{booking}/upload',
+            [\App\Http\Controllers\Vendor\BookingController::class, 'upload']
+        )->name('bookings.upload');
     });
+
+
 
 
 
@@ -125,16 +153,22 @@ Route::middleware(['auth', 'role:vendor'])
 */
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', 
-        [ProfileController::class, 'edit'])
+    Route::get(
+        '/profile',
+        [ProfileController::class, 'edit']
+    )
         ->name('profile.edit');
 
-    Route::patch('/profile', 
-        [ProfileController::class, 'update'])
+    Route::patch(
+        '/profile',
+        [ProfileController::class, 'update']
+    )
         ->name('profile.update');
 
-    Route::delete('/profile', 
-        [ProfileController::class, 'destroy'])
+    Route::delete(
+        '/profile',
+        [ProfileController::class, 'destroy']
+    )
         ->name('profile.destroy');
 });
 
@@ -185,4 +219,4 @@ Route::view('/help', 'help')->name('help');
 | AUTH ROUTES (breeze)
 |--------------------------------------------------------------------------
 */
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

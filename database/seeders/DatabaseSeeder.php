@@ -18,14 +18,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        Stand::create([
-        'nomor_stand' => 'A-01',
-        'lokasi' => 'Hall A',
-        'ukuran' => '3x3',
-        'harga' => 150000,
-        'fasilitas' => 'Listrik, Meja, Kursi',
-        'status' => 'available',
-]);
-
+        $this->call([
+            UserSeeder::class,
+            StandSeeder::class,
+            BookingSeeder::class,
+            NotificationSeeder::class,
+        ]);
     }
 }

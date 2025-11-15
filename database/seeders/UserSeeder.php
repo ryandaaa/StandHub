@@ -2,40 +2,41 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
         // Admin
         User::create([
-            'name' => 'Admin Bazarket',
-            'email' => 'admin@bazaar.test',
-            'password' => Hash::make('admin123'),
+            'name' => 'Super Admin',
+            'email' => 'admin@standhub.test',
+            'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
-        // Vendor contoh 1
-        User::create([
-            'name' => 'Vendor Satu',
-            'email' => 'vendor1@bazaar.test',
-            'password' => Hash::make('vendor123'),
-            'role' => 'vendor',
-        ]);
+        // Vendors (realistic Indonesian names)
+        $vendors = [
+            ['Alya Refina Putri', 'alyarfnptr@gmail.com'],
+            ['Rizky Maulana', 'rizky.maulana@yahoo.com'],
+            ['Dewi Kartika', 'dewi.kartika@outlook.com'],
+            ['Fajar Pratama', 'fajar.prtm@gmail.com'],
+            ['Siti Nurjanah', 'siti.nurjanah12@gmail.com'],
+            ['Rendra Setiawan', 'rendra.stwn@gmail.com'],
+            ['Nanda Febriansyah', 'nanda.febrian@icloud.com'],
+            ['Rama Suryadi', 'rama.suryadi@gmail.com'],
+        ];
 
-        // Vendor contoh 2
-        User::create([
-            'name' => 'Vendor Dua',
-            'email' => 'vendor2@bazaar.test',
-            'password' => Hash::make('vendor123'),
-            'role' => 'vendor',
-        ]);
+        foreach ($vendors as $v) {
+            User::create([
+                'name' => $v[0],
+                'email' => $v[1],
+                'password' => Hash::make('password'),
+                'role' => 'vendor',
+            ]);
+        }
     }
 }

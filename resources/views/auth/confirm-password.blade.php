@@ -1,27 +1,37 @@
 <x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+    <div class="auth-light-wrapper">
+
+        <div class="auth-light-card">
+
+            {{-- Header --}}
+            <div class="text-center mb-6">
+                <h2 class="auth-light-title">Confirm Password</h2>
+                <p class="auth-light-subtitle">
+                    This is a secure area. Please confirm your password to continue.
+                </p>
+            </div>
+
+            {{-- Form --}}
+            <form method="POST" action="{{ route('password.confirm') }}" class="space-y-5">
+                @csrf
+
+                {{-- Password --}}
+                <div>
+                    <label for="password" class="auth-light-label">Password</label>
+                    <input id="password" type="password" name="password" required autocomplete="current-password"
+                        class="auth-light-input" placeholder="••••••••">
+
+                    @error('password')
+                        <p class="auth-light-error">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Submit --}}
+                <button class="auth-light-button w-full">
+                    Confirm
+                </button>
+            </form>
+
+        </div>
     </div>
-
-    <form method="POST" action="{{ route('password.confirm') }}">
-        @csrf
-
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
-    </form>
 </x-guest-layout>

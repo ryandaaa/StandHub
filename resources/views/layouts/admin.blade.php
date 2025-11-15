@@ -22,7 +22,7 @@
     <div class="flex min-h-screen">
 
         {{-- SIDEBAR (NORMAL, TIDAK FIXED) --}}
-        <aside class="w-72 h-screen overflow-y-auto bg-white border-r border-gray-200 flex flex-col flex-none">
+        <aside class="w-72 fixed h-screen overflow-y-auto bg-white border-r border-gray-200 flex flex-col flex-none">
             {{-- LOGO --}}
             <div class="p-6 border-b border-gray-200">
                 <div class="flex items-center gap-3">
@@ -145,10 +145,10 @@
         </aside>
 
         {{-- MAIN AREA (TETAP, TIDAK DIOTAK-ATIK STRUKTURNYA) --}}
-        <main class="flex-1 overflow-y-auto">
+        <main class="flex-1 overflow-y-auto ml-72">
 
             {{-- TOPBAR --}}
-            <div class="bg-white border-b border-gray-200 px-8 py-4 shadow-sm">
+            <div class="bg-white fixed top-0 left-72 right-0 border-b border-gray-200 px-8 py-4 shadow-sm z-40">
                 <div class="flex items-center gap-6">
 
                     {{-- SEARCH BAR --}}
@@ -207,7 +207,9 @@
             </div>
 
             {{-- PAGE CONTENT --}}
-            <div class="p-8">
+            <div class="p-8 pt-24">
+
+                {{-- PAGE TITLE --}}
                 @yield('content')
             </div>
 

@@ -5,7 +5,7 @@
 @section('content')
 
     {{-- HERO SECTION --}}
-    <div class="text-center mb-12">
+    <div class="text-center mb-12 pt-12">
         <h1 class="text-4xl font-bold text-gray-900 mb-3 flex justify-center items-center gap-3">
             <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
