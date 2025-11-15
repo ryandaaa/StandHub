@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title') — Vendor Panel</title>
+    <title>@yield('title') — StandHub</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -37,8 +37,8 @@
                     </div>
 
                     <div>
-                        <h1 class="text-lg font-bold text-gray-900">Vendor Panel</h1>
-                        <p class="text-xs text-gray-500">Stand Management</p>
+                        <h1 class="text-lg font-bold text-gray-900">StandHub</h1>
+                        <p class="text-xs text-gray-500">Order Your Stand!</p>
                     </div>
 
                 </div>
@@ -56,17 +56,6 @@
                             d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h5m5 0h5a1 1 0 001-1V10" />
                     </svg>
                     Dashboard
-                </a>
-
-                {{-- Ketersediaan Stand --}}
-                <a href="{{ route('vendor.stands.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl
-                        {{ request()->routeIs('vendor.stands.*') ? 'bg-green-50 text-green-700 shadow-sm' : 'text-gray-700 hover:bg-gray-50' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                    </svg>
-                    Ketersediaan Stand
                 </a>
 
                 {{-- Booking Saya --}}

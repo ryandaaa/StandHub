@@ -10,18 +10,32 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $bookings = request()->user()->bookings()->latest()->take(5)->get();
-        $activeBookings = request()->user()->bookings()->where('status', 'confirmed')->count();
-        $totalBookings = request()->user()->bookings()->count();
+        $user = request()->user();
 
-        // Jika ingin hitung stand yang tersedia (tergantung model)
-        $availableStands = \App\Models\Stand::where('status', 'available')->count();
+        // Total booking aktif vendor
+        $activeBooking = $user->bookings()->where('status', 'approved')->count();
+
+        // Total transaksi selesai
+        $totalTransaksi = $user->bookings()->where('status', 'approved')->count();
+
+        // Booking terbaru
+        $recentBookings = $user->bookings()
+            ->latest()
+            ->take(5)
+            ->get();
+
+        // STAND AVAILABLE (untuk e-commerce katalog)
+        $stands = \App\Models\Stand::where('status', 'available')->paginate(9);
+
+        // Notifikasi terbaru
+        $notifications = $user->notifications()->latest()->take(5)->get();
 
         return view('vendor.dashboard', compact(
-            'bookings',
-            'activeBookings',
-            'availableStands',
-            'totalBookings'
+            'activeBooking',
+            'totalTransaksi',
+            'recentBookings',
+            'stands',
+            'notifications'
         ));
     }
 }
