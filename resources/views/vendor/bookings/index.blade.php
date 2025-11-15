@@ -53,6 +53,9 @@
                         </td>
                         <td class="p-3">{{ $b->created_at->format('d M Y') }}</td>
                         <td class="p-3">
+                        <td class="p-3 space-x-2">
+
+
                             @if ($b->status == 'pending')
                                 <form action="{{ route('vendor.bookings.destroy', $b->id) }}" method="POST"
                                     onsubmit="return confirm('Batalkan booking ini?')">
@@ -72,6 +75,11 @@
                             @else
                                 <span class="text-gray-500 text-sm">Tidak ada aksi</span>
                             @endif
+                            <a href="{{ route('vendor.bookings.show', $b->id) }}"
+                                class="px-3 py-1 bg-gray-700 text-black rounded hover:bg-gray-800">
+                                Lihat
+
+                            </a>
                         </td>
                     </tr>
                 @endforeach
