@@ -4,110 +4,149 @@
 
 @section('content')
 
-    <h2 class="text-3xl font-bold text-gray-900 mb-6">Daftar Vendor</h2>
+    <div class="space-y-4">
 
-    {{-- ALERT --}}
-    @if (session('success'))
-        <div class="mb-4 p-3 bg-green-100 text-green-700 rounded-lg border border-green-200">
-            {{ session('success') }}
+        {{-- HEADER --}}
+        <div>
+            <h2
+                class="text-4xl font-extrabold tracking-tight 
+                   bg-gradient-to-r from-slate-100 to-slate-400 
+                   bg-clip-text text-transparent">
+                Daftar Vendor
+            </h2>
+            <p class="text-sm text-slate-500 mt-1">
+                Semua vendor terdaftar dan ringkasan aktivitas mereka.
+            </p>
         </div>
-    @endif
 
-    @if ($vendors->count() == 0)
 
-        <div class="bg-white p-10 rounded-xl shadow text-center text-gray-500">
-            Belum ada vendor terdaftar.
-        </div>
-    @else
-        <div class="bg-white rounded-xl shadow border border-gray-200 overflow-hidden">
+        {{-- ALERT --}}
+        @if (session('success'))
+            <div
+                class="p-4 rounded-xl border border-emerald-500/20 
+                    bg-emerald-500/10 text-emerald-300 backdrop-blur">
+                {{ session('success') }}
+            </div>
+        @endif
 
-            <table class="w-full text-sm">
-                <thead class="bg-gray-50 text-gray-600 uppercase text-xs tracking-wider">
-                    <tr>
-                        <th class="p-4 text-left">Vendor</th>
-                        <th class="p-4 text-left">Email</th>
-                        <th class="p-4 text-left">Tanggal Daftar</th>
-                        <th class="p-4 text-left">Total Booking</th>
-                        <th class="p-4 text-left">Aksi</th>
-                    </tr>
-                </thead>
 
-                <tbody class="divide-y divide-gray-100">
+        @if ($vendors->count() == 0)
 
-                    @foreach ($vendors as $v)
-                        <tr class="hover:bg-gray-50 transition">
+            <div
+                class="p-12 text-center rounded-3xl border border-white/10 
+                    bg-white/[0.03] backdrop-blur-xl
+                    shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_0_40px_-12px_rgba(0,0,0,0.7)]">
+                <p class="text-slate-400 text-sm italic">Belum ada vendor terdaftar.</p>
+            </div>
+        @else
+            {{-- TABLE WRAPPER --}}
+            <div
+                class="rounded-3xl overflow-hidden border border-white/10 bg-white/[0.02] backdrop-blur-xl
+                   shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_0_50px_-15px_rgba(0,0,0,0.8)]">
 
-                            {{-- VENDOR + AVATAR --}}
-                            <td class="p-4 flex items-center gap-3">
-                                <div
-                                    class="h-10 w-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold shadow">
-                                    {{ strtoupper(substr($v->name, 0, 1)) }}
-                                </div>
-
-                                <div>
-                                    <p class="font-semibold text-gray-900">{{ $v->name }}</p>
-                                    <p class="text-xs text-gray-500">ID: {{ $v->id }}</p>
-                                </div>
-                            </td>
-
-                            {{-- EMAIL --}}
-                            <td class="p-4">
-                                <span class="text-gray-700">{{ $v->email }}</span>
-                            </td>
-
-                            {{-- CREATED --}}
-                            <td class="p-4">
-                                <span class="text-gray-700">
-                                    {{ $v->created_at->format('d M Y') }}
-                                </span>
-                            </td>
-
-                            {{-- BOOKING COUNT --}}
-                            <td class="p-4">
-                                <span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium">
-                                    {{ $v->bookings->count() }} Booking
-                                </span>
-                            </td>
-
-                            {{-- ACTION --}}
-                            <td class="p-4">
-
-                                <div class="flex items-center gap-2">
-
-                                    {{-- DETAIL --}}
-                                    <a href="{{ route('admin.vendors.show', $v->id) }}"
-                                        class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-medium hover:bg-blue-700 transition">
-                                        Detail
-                                    </a>
-
-                                    {{-- HAPUS --}}
-                                    <form action="{{ route('admin.vendors.destroy', $v->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus vendor ini? Semua data booking vendor juga akan hilang!');">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit"
-                                            class="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition">
-                                            Hapus
-                                        </button>
-                                    </form>
-
-                                </div>
-
-                            </td>
+                <table class="w-full text-sm text-slate-300">
+                    <thead class="bg-white/[0.03] border-b border-white/10 text-slate-400 text-xs uppercase tracking-wide">
+                        <tr>
+                            <th class="px-6 py-4 text-left">Vendor</th>
+                            <th class="px-6 py-4 text-left">Email</th>
+                            <th class="px-6 py-4 text-left">Tanggal Daftar</th>
+                            <th class="px-6 py-4 text-left">Total Booking</th>
+                            <th class="px-6 py-4 text-left">Aksi</th>
                         </tr>
-                    @endforeach
+                    </thead>
 
-                </tbody>
-            </table>
+                    <tbody class="divide-y divide-white/5">
 
-        </div>
+                        @foreach ($vendors as $v)
+                            <tr class="hover:bg-white/[0.03] transition">
 
-        <div class="mt-4">
-            {{ $vendors->links() }}
-        </div>
+                                {{-- AVATAR + NAME --}}
+                                <td class="px-6 py-4 flex items-center gap-4">
 
-    @endif
+                                    <div
+                                        class="h-11 px-4 w-11 rounded-2xl flex items-center justify-center 
+                                            bg-blue-500/10 text-blue-300 font-semibold
+                                            border border-blue-400/20 backdrop-blur shadow-inner">
+                                        {{ strtoupper(substr($v->name, 0, 1)) }}
+                                    </div>
+
+                                    <div>
+                                        <p class="font-semibold text-slate-100 text-base">{{ $v->name }}</p>
+                                        <p class="text-xs text-slate-500">ID: {{ $v->id }}</p>
+                                    </div>
+
+                                </td>
+
+                                {{-- EMAIL --}}
+                                <td class="px-6 py-4">
+                                    <span class="text-slate-300">
+                                        {{ $v->email }}
+                                    </span>
+                                </td>
+
+                                {{-- CREATED DATE --}}
+                                <td class="px-6 py-4">
+                                    <span class="text-slate-300">
+                                        {{ $v->created_at->format('d M Y') }}
+                                    </span>
+                                </td>
+
+                                {{-- BOOKING COUNT --}}
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="px-3 py-1.5 rounded-full text-xs font-semibold
+                                           bg-blue-600/20 border border-blue-500/30 text-blue-200
+                                           backdrop-blur shadow-[0_0_8px_rgba(59,130,246,0.25)]">
+                                        {{ $v->bookings->count() }} Booking
+                                    </span>
+                                </td>
+
+                                {{-- ACTION --}}
+                                <td class="px-6 py-4">
+
+                                    <div class="flex items-center gap-2">
+
+                                        {{-- DETAIL --}}
+                                        <a href="{{ route('admin.vendors.show', $v->id) }}"
+                                            class="px-4 py-1.5 text-xs rounded-lg font-medium
+                                               bg-blue-600/20 text-blue-200 border border-blue-500/30
+                                               hover:bg-blue-600/30 transition backdrop-blur">
+                                            Detail
+                                        </a>
+
+                                        {{-- DELETE --}}
+                                        <form action="{{ route('admin.vendors.destroy', $v->id) }}" method="POST"
+                                            onsubmit="return confirm('Hapus vendor ini? Semua booking vendor akan hilang!');">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit"
+                                                class="px-4 py-1.5 text-xs rounded-lg font-medium
+                                                   bg-red-600/20 text-red-200 border border-red-500/30
+                                                   hover:bg-red-600/30 transition backdrop-blur">
+                                                Hapus
+                                            </button>
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            {{-- PAGINATION --}}
+            <div class="pt-6">
+                {{ $vendors->links() }}
+            </div>
+
+        @endif
+
+    </div>
 
 @endsection
-@section('scripts')

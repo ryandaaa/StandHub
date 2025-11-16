@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class NotificationController extends Controller
 {
@@ -11,6 +12,7 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+        $layout = $user->role === 'admin' ? 'layouts.admin' : 'layouts.vendor';
 
         $notifications = Notification::where('user_id', $user->id)
             ->orderByDesc('created_at')
@@ -20,10 +22,15 @@ class NotificationController extends Controller
             ->unread()
             ->count();
 
-        return view('notifications.index', [
-            'notifications' => $notifications,
-            'unreadCount'   => $unreadCount,
-        ]);
+        /** @var \Illuminate\View\Factory $first */
+        return View::first(
+            [$layout . '.notifications.index', 'notifications.index'],
+            [
+                'layout'        => $layout,      // ← WAJIB
+                'notifications' => $notifications,
+                'unreadCount'   => $unreadCount,
+            ]
+        );
     }
 
     // Tandai 1 notif sebagai read

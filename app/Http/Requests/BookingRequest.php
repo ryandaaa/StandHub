@@ -16,13 +16,13 @@ class BookingRequest extends FormRequest
         // return true;
     }
 
-    public function rules(): array
+    public function rules()
     {
         return [
-            'stand_id'   => 'required|exists:stands,id',
-            'nama_usaha' => 'nullable|string|max:255',
-            'jenis_usaha'=> 'nullable|string|max:255',
-            'kontak'     => 'nullable|string|max:255',
+            'stand_id'    => ['required', 'exists:stands,id'],
+            'nama_usaha'  => ['required', 'string', 'max:255'],
+            'jenis_usaha' => ['required', 'string', 'max:255'],
+            'kontak'      => ['required', 'string', 'max:20'],
         ];
     }
 }

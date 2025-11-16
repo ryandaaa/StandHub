@@ -34,7 +34,6 @@ class BookingController extends Controller
 
     public function store(BookingRequest $request)
     {
-        // Buat booking dan ambil instance-nya
         $booking = Booking::create([
             'vendor_id'   => $request->user()->id,
             'stand_id'    => $request->stand_id,
@@ -44,6 +43,7 @@ class BookingController extends Controller
             'status'      => 'pending',
         ]);
 
+        // Kirim notifikasi ke admin
         $admins = \App\Models\User::where('role', 'admin')->get();
 
         foreach ($admins as $admin) {
@@ -53,13 +53,15 @@ class BookingController extends Controller
                 'message' => 'Vendor ' . $request->user()->name .
                     ' mengajukan booking stand #' . $booking->stand_id .
                     ' (ID Booking: ' . $booking->id . ').',
-                'link' => route('admin.bookings.show', $booking), // sesuaikan dengan route-mu
+                'link' => route('admin.bookings.show', $booking),
             ]);
         }
 
-        return redirect()->route('vendor.bookings.index')
-            ->with('success', 'Pengajuan booking dikirim.');
+        // ⬇ PENTING: Redirect ke halaman upload bukti pembayaran
+        return redirect()->route('vendor.bookings.uploadForm', $booking->id)
+            ->with('success', 'Pengajuan booking berhasil. Silakan upload bukti pembayaran.');
     }
+
 
     public function destroy(Booking $booking)
     {
