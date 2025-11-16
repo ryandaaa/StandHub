@@ -1,72 +1,64 @@
-<section class="space-y-4">
+<section>
 
-    <!-- HEADER -->
-    <header class="mb-3">
-        <h2 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 11c1.654 0 3-1.346 3-3S13.654 5 12 5s-3 1.346-3 3 1.346 3 3 3zM5 20a7 7 0 0114 0H5z" />
-            </svg>
-            Ganti Password
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600">
-            Gunakan password yang kuat untuk menjaga keamanan akun Anda.
-        </p>
+    <header>
+        <h2 class="text-xl font-semibold text-slate-100">Ubah Password</h2>
+        <p class="text-sm text-slate-400 mt-1">Pastikan akun Anda tetap aman dengan password yang kuat.</p>
     </header>
 
-
-    <form method="post" action="{{ route('password.update') }}" class="space-y-4">
+    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('put')
 
-        <!-- CURRENT PASSWORD -->
-        <div class="space-y-1">
-            <label class="block text-sm font-medium text-gray-700">
-                Password Saat Ini
-            </label>
 
-            <input name="current_password" type="password"
-                class="w-full rounded-md border-gray-300 focus:ring-blue-500 focus:border-blue-500" />
+        {{-- Password Saat Ini --}}
+        <div>
+            <label class="block text-sm font-medium text-slate-300">Password Saat Ini</label>
+            <input id="current_password" name="current_password" type="password"
+                class="mt-2 w-full bg-slate-800 text-slate-100 border border-slate-600 rounded-lg px-4 py-3
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
 
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="text-xs" />
-        </div>
-
-        <!-- NEW PASSWORD -->
-        <div class="space-y-1">
-            <label class="block text-sm font-medium text-gray-700">
-                Password Baru
-            </label>
-
-            <input name="password" type="password"
-                class="w-full rounded-md border-gray-300 focus:ring-blue-500 focus:border-blue-500" />
-
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="text-xs" />
-        </div>
-
-        <!-- CONFIRM PASSWORD -->
-        <div class="space-y-1">
-            <label class="block text-sm font-medium text-gray-700">
-                Konfirmasi Password
-            </label>
-
-            <input name="password_confirmation" type="password"
-                class="w-full rounded-md border-gray-300 focus:ring-blue-500 focus:border-blue-500" />
-
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="text-xs" />
+            @error('current_password')
+                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
 
-        <!-- BUTTON -->
-        <div class="flex items-center gap-3">
-            <button class="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition">
-                Simpan
+        {{-- Password Baru --}}
+        <div>
+            <label class="block text-sm font-medium text-slate-300">Password Baru</label>
+            <input id="password" name="password" type="password"
+                class="mt-2 w-full bg-slate-800 text-slate-100 border border-slate-600 rounded-lg px-4 py-3
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+
+            @error('password')
+                <p class="text-red-400 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+
+
+        {{-- Konfirmasi Password --}}
+        <div>
+            <label class="block text-sm font-medium text-slate-300">Konfirmasi Password</label>
+            <input id="password_confirmation" name="password_confirmation" type="password"
+                class="mt-2 w-full bg-slate-800 text-slate-100 border border-slate-600 rounded-lg px-4 py-3
+                       focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
+        </div>
+
+
+        <div class="flex items-center gap-4">
+            <button
+                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold 
+                       transition shadow hover:shadow-blue-900/40">
+                Update Password
             </button>
 
             @if (session('status') === 'password-updated')
-                <p class="text-xs text-green-600">Password diperbarui.</p>
+                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2500)"
+                    class="text-green-400 text-sm">
+                    Password diperbarui!
+                </p>
             @endif
         </div>
-    </form>
 
+    </form>
 </section>

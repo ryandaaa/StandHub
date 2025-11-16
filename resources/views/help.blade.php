@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.wrapper')
 @section('title', 'Pusat Bantuan')
 
 @section('content')
@@ -23,19 +23,22 @@
                     'title' => 'Cara Booking Stand',
                     'desc' => 'Langkah-langkah pemesanan, upload bukti bayar, dan menunggu verifikasi.',
                     'color' => 'blue',
-                    'icon' => '<path stroke-width="2" d="M12 8v4m0 4h.01M21 12A9 9 0 116 5.29" />',
+                    'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />',
                 ],
                 [
                     'title' => 'Status Booking',
                     'desc' => 'Penjelasan lengkap arti Pending, Approved, Rejected, dan tindakan selanjutnya.',
                     'color' => 'emerald',
-                    'icon' => '<path stroke-width="2" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0" />',
+                    'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />',
                 ],
                 [
                     'title' => 'Waktu Respon',
                     'desc' => 'Estimasi durasi proses verifikasi admin dan alur notifikasi otomatis.',
                     'color' => 'violet',
-                    'icon' => '<path stroke-width="2" d="M12 6v6l4 2" />',
+                    'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />',
                 ],
             ];
         @endphp
@@ -92,9 +95,9 @@
                     <button @click="open === {{ $index }} ? open = null : open = {{ $index }}"
                         class="flex justify-between items-center w-full text-left text-slate-100">
                         <span class="font-medium">{{ $f['q'] }}</span>
-                        <svg :class="open === {{ $index }} ? 'rotate-180' : ''"
-                            class="w-5 h-5 text-slate-400 transition-transform" fill="none" stroke="currentColor">
-                            <path stroke-width="2" d="M19 9l-7 7-7-7" />
+                        <svg class="w-5 h-5 text-slate-400 transition-transform" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
 
@@ -124,19 +127,22 @@
                         'title' => 'Email Support',
                         'sub' => 'support@example.com',
                         'color' => 'blue',
-                        'icon' => '<path stroke-width="2" d="M16 12H8m0 0v8m0-8V4m8 8H8" />',
+                        'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />',
                     ],
                     [
                         'title' => 'WhatsApp',
                         'sub' => '+62 812-3456-7890',
                         'color' => 'emerald',
-                        'icon' => '<path stroke-width="2" d="M22 12l-4 4m0 0l-4-4m4 4V4" />',
+                        'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />',
                     ],
                     [
                         'title' => 'Live Chat',
                         'sub' => 'Segera hadir',
                         'color' => 'violet',
-                        'icon' => '<path stroke-width="2" d="M18 8a6 6 0 11-12 0" />',
+                        'icon' => '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />',
                     ],
                 ];
             @endphp
