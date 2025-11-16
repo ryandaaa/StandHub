@@ -55,7 +55,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h5m5 0h5a1 1 0 001-1V10" />
                     </svg>
-                    Dashboard
+                    Home
                 </a>
 
                 {{-- Booking Saya --}}
@@ -194,7 +194,7 @@
     </div>
 
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
-
 </body>
+@yield('scripts')
 
 </html>

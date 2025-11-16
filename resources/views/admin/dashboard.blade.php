@@ -3,298 +3,204 @@
 
 @section('content')
 
-<div class="space-y-6">
+    <div class="space-y-12">
 
-    {{-- HEADER --}}
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-            <h2 class="text-3xl font-bold text-gray-900">Dashboard Overview</h2>
-            <p class="text-sm text-gray-600 mt-1.5">
-                Selamat datang kembali! Berikut ringkasan sistem Anda hari ini.
-            </p>
-        </div>
-
-        <div class="flex items-center gap-3">
-            <span class="inline-flex items-center rounded-full bg-green-50 border border-green-200 px-3 py-1.5 text-xs font-semibold text-green-700">
-                <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                Sistem Aktif
-            </span>
-            <span class="text-xs text-gray-500">{{ now()->format('d M Y, H:i') }}</span>
-        </div>
-    </div>
-
-    {{-- STATS CARDS --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        {{-- TOTAL STAND --}}
-        <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-110 transition-transform"></div>
-            
-            <div class="relative">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 shadow-sm">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
-                    <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-                        +12%
-                    </span>
-                </div>
-                
-                <p class="text-sm font-medium text-gray-600 mb-1">Total Stand</p>
-                <p class="text-4xl font-bold text-gray-900">{{ $totalStands }}</p>
-                
-                <div class="mt-4 flex items-center text-xs text-gray-500">
-                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Update 5 menit lalu
-                </div>
+        <!-- HEADER -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h2
+                    class="text-4xl pt-3 font-extrabold tracking-tight bg-gradient-to-r from-slate-100 to-slate-400 bg-clip-text text-transparent">
+                    Dashboard
+                </h2>
+                <p class="text-sm text-slate-500 mt-1 tracking-wide">
+                    Sistem berjalan dalam mode high-performance
+                </p>
             </div>
-        </div>
 
-        {{-- BOOKED --}}
-        <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-50 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-110 transition-transform"></div>
-            
-            <div class="relative">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600 shadow-sm">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                        </svg>
-                    </div>
-                    <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-                        +8%
-                    </span>
-                </div>
-                
-                <p class="text-sm font-medium text-gray-600 mb-1">Stand Terboking</p>
-                <p class="text-4xl font-bold text-gray-900">{{ $booked }}</p>
-                
-                <div class="mt-4 flex items-center text-xs text-gray-500">
-                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Update 5 menit lalu
-                </div>
-            </div>
-        </div>
+            <div class="flex items-center gap-3">
+                <span
+                    class="inline-flex items-center rounded-full bg-emerald-900/30 px-4 py-1.5 text-xs font-semibold text-emerald-300 border border-emerald-700/40 backdrop-blur-md shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 mr-2 animate-pulse"></span>
+                    Sistem Aktif
+                </span>
 
-        {{-- VENDOR --}}
-        <div class="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 shadow-sm hover:shadow-md transition-all duration-300">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-50 rounded-full -mr-16 -mt-16 opacity-50 group-hover:scale-110 transition-transform"></div>
-            
-            <div class="relative">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600 shadow-sm">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                    </div>
-                    <span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700">
-                        +15%
-                    </span>
-                </div>
-                
-                <p class="text-sm font-medium text-gray-600 mb-1">Vendor Terdaftar</p>
-                <p class="text-4xl font-bold text-gray-900">{{ $vendors }}</p>
-                
-                <div class="mt-4 flex items-center text-xs text-gray-500">
-                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    Update 5 menit lalu
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    {{-- QUICK ACTIONS --}}
-    <div class="space-y-4">
-        <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-gray-900">Quick Actions</h3>
-            <span class="text-xs text-gray-500">Akses cepat ke fitur utama</span>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a href="{{ route('admin.stands.index') }}"
-               class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-lg hover:border-blue-200 transition-all duration-300">
-                <div class="flex items-start gap-4">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-100 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                            Tambah Stand Baru
-                        </p>
-                        <p class="mt-1 text-xs text-gray-600">
-                            Buat stand baru dan atur ketersediaan
-                        </p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="{{ route('admin.bookings.index') }}"
-               class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-lg hover:border-purple-200 transition-all duration-300">
-                <div class="flex items-start gap-4">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-purple-50 text-purple-600 group-hover:bg-purple-100 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold text-gray-900 group-hover:text-purple-600 transition-colors">
-                            Kelola Booking
-                        </p>
-                        <p class="mt-1 text-xs text-gray-600">
-                            Pantau dan kelola booking terbaru
-                        </p>
-                    </div>
-                </div>
-            </a>
-
-            <a href="{{ route('admin.vendors.index') }}"
-               class="group relative overflow-hidden rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-lg hover:border-amber-200 transition-all duration-300">
-                <div class="flex items-start gap-4">
-                    <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-amber-50 text-amber-600 group-hover:bg-amber-100 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-semibold text-gray-900 group-hover:text-amber-600 transition-colors">
-                            Lihat Vendor
-                        </p>
-                        <p class="mt-1 text-xs text-gray-600">
-                            Tinjau vendor terdaftar dan aktif
-                        </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {{-- STATISTIK GRAFIK --}}
-        <div class="lg:col-span-2 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <div>
-                    <h3 class="text-lg font-semibold text-gray-900">Statistik Mingguan</h3>
-                    <p class="text-xs text-gray-500 mt-1">Perkembangan booking 7 hari terakhir</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button class="px-3 py-1.5 text-xs font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                        7 Hari
-                    </button>
-                    <button class="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
-                        30 Hari
-                    </button>
-                </div>
-            </div>
-            
-            <div class="h-64 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-gray-200">
-                <div class="text-center">
-                    <svg class="w-16 h-16 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                    </svg>
-                    <p class="text-sm font-medium text-gray-700">Grafik Chart</p>
-                    <p class="text-xs text-gray-500 mt-1">Integrasi Chart.js atau library lainnya</p>
-                </div>
-            </div>
-        </div>
-
-        {{-- ACTIVITY LOG --}}
-        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-5">
-                <h3 class="text-lg font-semibold text-gray-900">Aktivitas Terbaru</h3>
-                <span class="flex h-2 w-2 relative">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                <span class="text-xs text-slate-500 tracking-wider">
+                    {{ now()->format('d M Y, H:i') }}
                 </span>
             </div>
+        </div>
 
-            <div class="space-y-4">
-                <div class="flex gap-3">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
-                            </svg>
-                        </div>
+
+        <!-- STAT CARDS -->
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <!-- CARD TEMPLATE -->
+            @php
+                $cards = [
+                    ['title' => 'Total Stand', 'value' => $totalStands, 'color' => 'blue'],
+                    ['title' => 'Stand Terboking', 'value' => $booked, 'color' => 'violet'],
+                    ['title' => 'Vendor Terdaftar', 'value' => $vendors, 'color' => 'amber'],
+                ];
+            @endphp
+
+            @foreach ($cards as $c)
+                <div
+                    class="
+            relative overflow-hidden
+            rounded-3xl border border-white/5 
+            bg-white/[0.03]
+            backdrop-blur-xl 
+            shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06),0_0_40px_-10px_rgba(0,0,0,0.6)]
+            group transition-all duration-500
+            hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),0_0_60px_-6px_rgba(0,0,0,0.9)]
+            hover:scale-[1.015]
+        ">
+                    <!-- Aura Glow -->
+                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700"
+                        style="
+                    background:
+                        radial-gradient(circle at top right,
+                        rgba({{ $c['color'] === 'blue' ? '56,189,248' : ($c['color'] === 'violet' ? '167,139,250' : '251,191,36') }},0.18),
+                        transparent 70%);
+                ">
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-900">
-                            Vendor <span class="font-semibold text-blue-600">Kopi Seduh</span> booking stand
-                        </p>
-                        <p class="text-xs text-gray-500 mt-0.5">2 menit lalu</p>
+
+                    <div class="relative p-8">
+                        <!-- ICON -->
+                        <div
+                            class="h-14 w-14 rounded-2xl flex items-center justify-center mb-6
+                                bg-{{ $c['color'] }}-500/10 border border-{{ $c['color'] }}-500/20 text-{{ $c['color'] }}-300
+                                shadow-[0_0_15px_rgba(255,255,255,0.03)]">
+                            @if ($c['title'] === 'Total Stand')
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5" />
+                                </svg>
+                            @elseif ($c['title'] === 'Stand Terboking')
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5" />
+                                </svg>
+                            @else
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                        <path d="M17 20v-2a4 4 0 00-3-3.87M7 20v-2a4 4 0 013-3.87" />
+                                        <path d="M7 10a4 4 0 108 0 4 4 0 00-8 0z" />
+                                    </svg>
+
+                                </svg>
+                            @endif
+                        </div>
+
+                        <p class="text-sm text-slate-500 tracking-wide">{{ $c['title'] }}</p>
+
+                        <h3 class="text-5xl font-extrabold text-slate-100 tracking-tight mt-1 drop-shadow-md">
+                            {{ $c['value'] }}
+                        </h3>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+
+
+
+        <!-- GRAPH + ACTIVITY -->
+        <div class="grid lg:grid-cols-3 gap-10">
+
+            <!-- GRAPH -->
+            <div
+                class="lg:col-span-2 p-8 rounded-3xl border border-white/5 bg-white/[0.03] backdrop-blur-xl
+            shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_0_35px_-10px_rgba(0,0,0,0.8)]
+        ">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-100">Statistik Mingguan</h3>
+                        <p class="text-xs text-slate-500">Perkembangan booking</p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1.5 text-xs font-medium text-slate-200 bg-slate-700/40 rounded-md">
+                            7 Hari
+                        </button>
+
+                        <button
+                            class="px-3 py-1.5 text-xs text-slate-400 hover:text-slate-200 hover:bg-slate-700/30 rounded-md">
+                            30 Hari
+                        </button>
                     </div>
                 </div>
 
-                <div class="flex gap-3">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-900">
-                            Admin menambahkan 1 stand di <span class="font-semibold">Area B</span>
-                        </p>
-                        <p class="text-xs text-gray-500 mt-0.5">15 menit lalu</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-900">
-                            Pembayaran <span class="font-semibold text-green-600">#INV-004</span> diverifikasi
-                        </p>
-                        <p class="text-xs text-gray-500 mt-0.5">1 jam lalu</p>
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <div class="flex-shrink-0 mt-1">
-                        <div class="h-8 w-8 rounded-full bg-amber-100 flex items-center justify-center">
-                            <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-900">
-                            Vendor <span class="font-semibold">Bakso Mas Eko</span> pending approval
-                        </p>
-                        <p class="text-xs text-gray-500 mt-0.5">3 jam lalu</p>
+                <div class="h-72 rounded-2xl bg-black/20 border border-white/10 flex items-center justify-center">
+                    <div class="text-center">
+                        <svg class="w-16 h-16 mx-auto text-slate-600 mb-3" fill="none" stroke="currentColor">
+                            <path stroke-width="2" d="M9 19v-6a2 2..." />
+                        </svg>
+                        <p class="text-sm text-slate-300">Grafik Chart</p>
+                        <p class="text-xs text-slate-500">Integrasi siap</p>
                     </div>
                 </div>
             </div>
 
-            <button class="mt-5 w-full py-2.5 text-sm font-medium text-gray-700 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                Lihat Semua Aktivitas
-            </button>
+            <!-- ACTIVITY LOG -->
+            <div
+                class="p-8 rounded-3xl border border-white/5 bg-white/[0.03] backdrop-blur-xl
+            shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05),0_0_30px_-10px_rgba(0,0,0,0.8)]
+        ">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-slate-100">Aktivitas Terbaru</h3>
+                    <span class="h-2 w-2 rounded-full bg-blue-400 animate-pulse"></span>
+                </div>
+
+                <div class="space-y-6">
+
+                    <!-- ACTIVITY ITEM -->
+                    @php
+                        $rows = [
+                            ['color' => 'blue', 'vendor' => 'Kopi Seduh', 'time' => '2 menit lalu'],
+                            ['color' => 'violet', 'vendor' => 'Admin menambahkan stand', 'time' => '15 menit lalu'],
+                            [
+                                'color' => 'green',
+                                'vendor' => 'Pembayaran #INV-004 diverifikasi',
+                                'time' => '1 jam lalu',
+                            ],
+                            ['color' => 'amber', 'vendor' => 'Vendor Bakso Mas Eko pending', 'time' => '3 jam lalu'],
+                        ];
+                    @endphp
+
+                    @foreach ($rows as $r)
+                        <div class="flex gap-4">
+                            <div
+                                class="h-10 w-10 rounded-xl flex items-center justify-center
+                        bg-{{ $r['color'] }}-500/10 border border-{{ $r['color'] }}-500/20 text-{{ $r['color'] }}-300
+                        shadow-[0_0_12px_rgba(255,255,255,0.03)]
+                    ">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor">
+                                    <path stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+
+                            <div>
+                                <p class="text-sm text-slate-100">{{ $r['vendor'] }}</p>
+                                <p class="text-xs text-slate-500">{{ $r['time'] }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+
+                <button
+                    class="mt-8 w-full py-3 text-sm font-medium text-slate-200 rounded-xl
+                bg-white/10 hover:bg-white/20 border border-white/10 transition-all duration-300">
+                    Lihat Semua Aktivitas
+                </button>
+            </div>
+
         </div>
 
     </div>
 
-</div>
+
+
 
 @endsection

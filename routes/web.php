@@ -95,9 +95,6 @@ Route::middleware(['auth', 'role:admin'])
             ->name('stands.bookings');
     });
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | VENDOR ROUTES
@@ -110,13 +107,17 @@ Route::middleware(['auth', 'role:vendor'])
 
         Route::get(
             '/dashboard',
-            [\App\Http\Controllers\Vendor\DashboardController::class, 'index']
+            [\App\Http\Controllers\Vendor\StandController::class, 'index']
         )->name('dashboard');
 
         Route::get(
             '/stands',
             [\App\Http\Controllers\Vendor\StandController::class, 'index']
         )->name('stands.index');
+
+        Route::get('/stands/search', [\App\Http\Controllers\Vendor\StandController::class, 'search'])
+            ->name('stands.search');
+
 
         // Booking CRUD (index, create, store, destroy)
         Route::resource(

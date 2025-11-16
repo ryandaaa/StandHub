@@ -21,12 +21,13 @@
                     </div>
                     <div class="p-6">
                         <div class="flex gap-6">
-                            <img src="https://images.unsplash.com/photo-1555421689-d68471e189f2?w=400"
-                                class="w-32 h-32 object-cover rounded-lg border border-gray-200" alt="Foto Stand">
+                            <img src="{{ $stand->gambar_url ?? asset('default-stand.jpg') }}"
+                                class="w-32 h-32 object-cover rounded-lg border border-gray-200">
+
                             <div class="flex-1">
                                 <div class="flex justify-between items-start">
                                     <div>
-                                        <h3 class="text-xl font-bold text-gray-900">Stand A-01</h3>
+                                        <h3 class="text-xl font-bold text-gray-900">{{ $stand->nomor_stand }}</h3>
                                         <p class="text-gray-600 mt-1 flex items-center">
                                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
@@ -36,7 +37,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             </svg>
-                                            Lantai 1, Zona A
+                                            {{ $stand->lokasi ?? 'Lokasi tidak tersedia' }}
                                         </p>
                                         <div
                                             class="mt-3 inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 text-sm font-medium rounded-full">
@@ -46,12 +47,12 @@
                                                     d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
                                                 </path>
                                             </svg>
-                                            3x3 meter
+                                            {{ $stand->ukuran ?? $stand->panjang . 'x' . $stand->lebar . ' meter' }}
                                         </div>
                                     </div>
                                     <div class="text-right">
-                                        <p class="text-2xl font-bold text-green-600">Rp 5.000.000</p>
-                                        <p class="text-sm text-gray-500 mt-1">per bulan</p>
+                                        <p class="text-2xl font-bold text-green-600">Rp
+                                            {{ number_format($stand->harga, 0, ',', '.') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -65,33 +66,67 @@
                         <h2 class="text-lg font-semibold text-gray-900">Informasi Usaha</h2>
                         <p class="text-sm text-gray-600 mt-1">Lengkapi data usaha Anda dengan benar</p>
                     </div>
-                    <form class="p-6 space-y-5">
+
+                    {{-- FORM MULAI --}}
+                    <form id="checkoutForm" method="POST" action="{{ route('vendor.bookings.store') }}"
+                        class="p-6 space-y-5">
+                        @csrf
+
+
+                        {{-- Stand ID yang dipilih --}}
+                        <input type="hidden" name="stand_id" value="{{ $stand->id }}">
+
+                        {{-- Nama Usaha --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Nama Usaha <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="nama_usaha" required placeholder="Contoh: Warung Makan Sederhana"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                          focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+
+                            @error('nama_usaha')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
                         </div>
 
+                        {{-- Jenis Usaha --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Jenis Usaha <span class="text-red-500">*</span>
                             </label>
                             <input type="text" name="jenis_usaha" required placeholder="Contoh: Makanan & Minuman"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                          focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                            @error('jenis_usaha')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
                         </div>
 
+                        {{-- Nomor Kontak --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
                                 Nomor Kontak <span class="text-red-500">*</span>
                             </label>
                             <input type="tel" name="kontak" required placeholder="08xxxxxxxxxx"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
-                            <p class="text-xs text-gray-500 mt-2">Nomor ini akan digunakan untuk konfirmasi booking</p>
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg 
+                          focus:ring-2 focus:ring-green-500 focus:border-transparent transition">
+                            <p class="text-xs text-gray-500 mt-2">
+                                Nomor ini akan digunakan untuk konfirmasi booking
+                            </p>
+                            @error('kontak')
+                                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
                         </div>
+
+                        {{-- Submit Button --}}
                     </form>
+                    {{-- FORM SELESAI --}}
                 </div>
+
             </div>
 
             <!-- RIGHT: Ringkasan Pembayaran (Sticky) -->
@@ -103,7 +138,7 @@
                     <div class="p-6 space-y-4">
                         <div class="flex justify-between text-gray-700">
                             <span>Harga Stand</span>
-                            <span class="font-medium">Rp 5.000.000</span>
+                            <span class="font-medium">Rp {{ number_format($stand->harga, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between text-gray-700">
                             <span>Biaya Admin</span>
@@ -113,12 +148,15 @@
                         <div class="border-t border-gray-200 pt-4">
                             <div class="flex justify-between items-center">
                                 <span class="text-lg font-semibold text-gray-900">Total</span>
-                                <span class="text-2xl font-bold text-green-600">Rp 5.000.000</span>
+                                <span class="text-2xl font-bold text-green-600">
+                                    Rp {{ number_format($stand->harga, 0, ',', '.') }}
+                                </span>
+
                             </div>
                         </div>
 
                         <!-- CTA Button -->
-                        <button type="submit"
+                        <button type="button" id="submitCheckout"
                             class="w-full py-4 bg-green-600 text-white font-bold rounded-lg hover:bg-green-700 transition shadow-md hover:shadow-lg mt-6">
                             <span class="flex items-center justify-center">
                                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,6 +167,7 @@
                                 Lanjutkan ke Pembayaran
                             </span>
                         </button>
+
 
                         <!-- Trust Badges -->
                         <div class="pt-4 border-t border-gray-200">
@@ -172,7 +211,18 @@
             </div>
         </div>
     </div>
-    </body>
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('submitCheckout');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    document.getElementById('checkoutForm').submit();
+                });
+            }
+        });
+    </script>
+@endsection
 
-    </html>
+
 @endsection

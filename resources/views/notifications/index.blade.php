@@ -1,79 +1,86 @@
-@extends('layouts.admin') {{-- Jika vendor punya layout terpisah, ganti sesuai --}}
+@extends('layouts.wrapper')
+
 @section('title', 'Notifikasi')
 
 @section('content')
 
-<div class="max-w-3xl mx-auto">
+    <div class="max-w-4xl mx-auto pt-4">
 
-    <div class="flex items-center justify-between mb-6">
-        <h1 class="text-2xl font-bold text-gray-900">Notifikasi</h1>
+        {{-- HEADER --}}
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-100 tracking-tight">Notifikasi</h1>
+                <p class="text-slate-400 text-sm mt-1">
+                    Semua pembaruan terbaru terkait booking dan aktivitas akun Anda.
+                </p>
+            </div>
 
-        {{-- tombol mark all --}}
-        @if($notifications->whereNull('read_at')->count() > 0)
-            <form action="#" method="POST" id="mark-all-form">
-                @csrf
-                <button 
-                    type="button"
-                    onclick="document.querySelectorAll('.mark-read-btn').forEach(btn => btn.click());"
-                    class="px-4 py-2 text-sm font-medium text-blue-600 hover:underline">
-                    Tandai semua sebagai dibaca
+            {{-- Mark All --}}
+            @if ($notifications->whereNull('read_at')->count() > 0)
+                <button onclick="document.querySelectorAll('.mark-read-btn').forEach(btn => btn.click());"
+                    class="px-4 py-2 text-sm font-medium bg-blue-600/80 hover:bg-blue-600 text-white rounded-lg shadow transition">
+                    Tandai semua dibaca
                 </button>
-            </form>
-        @endif
-    </div>
+            @endif
+        </div>
 
 
-    {{-- LIST --}}
-    <div class="bg-white shadow-sm rounded-xl border border-gray-200 divide-y divide-gray-200">
+        {{-- LIST WRAPPER --}}
+        <div
+            class="bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-xl rounded-2xl overflow-hidden divide-y divide-white/5">
 
-        @forelse ($notifications as $n)
-        
-            <div class="p-5 flex items-start gap-4">
-                
-                {{-- Bullet unread --}}
-                @if(!$n->read_at)
-                    <span class="w-3 h-3 mt-2 rounded-full bg-blue-500"></span>
-                @else
-                    <span class="w-3 h-3 mt-2 rounded-full bg-gray-300"></span>
-                @endif
+            @forelse ($notifications as $n)
+                <div class="p-6 flex items-start gap-4 hover:bg-white/5 transition">
 
-                <div class="flex-1">
+                    {{-- Bullet --}}
+                    <span
+                        class="w-2.5 h-2.5 mt-2 rounded-full 
+                    {{ $n->read_at ? 'bg-slate-500' : 'bg-blue-500 animate-pulse' }}">
+                    </span>
 
-                    <p class="text-sm {{ $n->read_at ? 'text-gray-600' : 'text-gray-900 font-semibold' }}">
-                        {{ $n->message }}
-                    </p>
+                    {{-- TEXT --}}
+                    <div class="flex-1">
+                        <p
+                            class="text-sm leading-relaxed
+                        {{ $n->read_at ? 'text-slate-300' : 'text-slate-100 font-semibold' }}">
+                            {{ $n->message }}
+                        </p>
 
-                    <p class="text-xs text-gray-400 mt-1">
-                        {{ $n->created_at->diffForHumans() }}
-                    </p>
+                        <p class="text-xs text-slate-500 mt-1">
+                            {{ $n->created_at->diffForHumans() }}
+                        </p>
+                    </div>
+
+                    {{-- Button Mark Read --}}
+                    @if (!$n->read_at)
+                        <form action="{{ route('notifications.read', $n->id) }}" method="POST">
+                            @csrf
+                            <button
+                                class="mark-read-btn text-xs text-blue-400 hover:text-blue-300 hover:underline transition"
+                                title="Tandai dibaca">
+                                Tandai
+                            </button>
+                        </form>
+                    @endif
+
                 </div>
 
-                {{-- Button mark read --}}
-                @if(!$n->read_at)
-                <form action="{{ route('notifications.read', $n->id) }}" method="POST">
-                    @csrf
-                    <button 
-                        class="mark-read-btn text-xs text-blue-600 hover:underline"
-                        title="Tandai dibaca">
-                        Tandai
-                    </button>
-                </form>
-                @endif
-            </div>
+            @empty
 
-        @empty
-            <div class="p-6 text-center text-gray-500">
-                Tidak ada notifikasi.
+                <div class="p-10 text-center">
+                    <p class="text-slate-400 text-sm">Tidak ada notifikasi saat ini.</p>
+                </div>
+            @endforelse
+        </div>
+
+
+        {{-- PAGINATION --}}
+        <div class="mt-8">
+            <div class="flex justify-center">
+                {{ $notifications->links('pagination::tailwind') }}
             </div>
-        @endforelse
+        </div>
 
     </div>
-
-    {{-- PAGINATION --}}
-    <div class="mt-6">
-        {{ $notifications->links() }}
-    </div>
-
-</div>
 
 @endsection

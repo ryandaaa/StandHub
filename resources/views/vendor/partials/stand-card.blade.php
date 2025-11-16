@@ -43,7 +43,7 @@
 
         @if ($s->status == 'available')
             <a href="{{ route('vendor.bookings.create', ['stand' => $s->id]) }}"
-                class="block w-full text-center bg-blue-600 hover:bg-blue-700 
+                class="block w-full text-center bg-green-600 hover:bg-green-700 
                        text-white py-2.5 rounded-lg font-medium transition">
                 Book Sekarang
             </a>

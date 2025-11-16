@@ -1,48 +1,67 @@
 <div x-show="openNotif" x-cloak @click.outside="openNotif = false"
-    class="absolute right-0 top-12 w-80 bg-white rounded-xl shadow-lg border border-gray-200 p-4 z-50">
+    class="absolute right-0 top-14 w-80 
+           rounded-2xl backdrop-blur-xl 
+           bg-slate-900
+           border border-white/10 
+           shadow-[0_8px_30px_rgba(0,0,0,0.6)]
+           p-4 z-50 transition-all duration-300">
 
-    <h3 class="text-sm font-semibold text-gray-900 mb-2">Notifikasi</h3>
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-3 px-1">
+        <h3 class="text-sm font-semibold text-slate-100 tracking-wide">Notifikasi</h3>
+    </div>
 
-    <div class="divide-y divide-gray-100 max-h-80 overflow-y-auto">
+    <!-- LIST -->
+    <div
+        class="divide-y divide-white/5 max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900/20">
 
         @forelse ($notifications as $n)
-            <div class="py-2 flex items-start gap-3">
+            <div class="py-3 flex items-start gap-3 group">
 
-                {{-- BULLET UNREAD --}}
-                @if (!$n->read_at)
-                    <span class="w-2 h-2 mt-2 rounded-full bg-blue-500"></span>
-                @else
-                    <span class="w-2 h-2 mt-2 rounded-full bg-gray-300"></span>
-                @endif
+                <!-- BULLET -->
+                <span
+                    class="w-2 h-2 mt-2 rounded-full 
+                    {{ !$n->read_at ? 'bg-blue-400 animate-pulse' : 'bg-slate-500' }}">
+                </span>
 
+                <!-- MESSAGE -->
                 <div class="flex-1">
-                    <p class="text-sm text-gray-800">
+                    <p class="text-sm text-slate-200 leading-snug">
                         {{ $n->message }}
                     </p>
-                    <p class="text-xs text-gray-500 mt-1">
+                    <p class="text-[11px] text-slate-400 mt-1">
                         {{ $n->created_at->diffForHumans() }}
                     </p>
                 </div>
 
-                {{-- MARK AS READ --}}
+                <!-- MARK AS READ -->
                 @if (!$n->read_at)
                     <form action="{{ route('notifications.read', $n->id) }}" method="POST">
                         @csrf
-                        <button class="text-xs text-blue-600 hover:underline">Mark</button>
+                        <button class="text-[11px] text-blue-400 hover:text-blue-300 transition">
+                            Tandai
+                        </button>
                     </form>
                 @endif
 
             </div>
 
         @empty
-            <p class="text-sm text-gray-500 py-4 text-center">
-                Tidak ada notifikasi.
-            </p>
+
+            <div class="py-6 text-center">
+                <svg class="w-8 h-8 mx-auto text-slate-600 mb-2" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                        d="M12 8v4m0 4h.01M21 12A9 9 0 116 5.29" />
+                </svg>
+                <p class="text-sm text-slate-500">Tidak ada notifikasi.</p>
+            </div>
         @endforelse
 
     </div>
 
-    <a href="{{ route('notifications.index') }}" class="block text-center text-sm text-blue-600 hover:underline mt-3">
+    <!-- FOOTER -->
+    <a href="{{ route('notifications.index') }}"
+        class="block text-center text-sm text-slate-300 hover:text-white mt-3 transition">
         Lihat semua
     </a>
 </div>
