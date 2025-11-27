@@ -87,7 +87,9 @@ php artisan serve
 
 🔑 Default Credentials (Dummy)
 Role	Email	Password
-Admin	admin@example.com	password
+
+Admin	admin@standhub.test	password
+
 Vendor	vendor@example.com	password
 
 🧪 API Support
