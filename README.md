@@ -53,7 +53,7 @@
 
 ### 1️⃣ Clone Repository
 ```bash
-git clone https://github.com/your-username/repo-name.git
+git clone https://github.com/ryandaaa/StandHub.git
 cd repo-name
 ```
 
